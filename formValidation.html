@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+<script>
+  function validateForm() {
+    // Get form inputs
+    var textInput = document.getElementById('text_input').value.trim();
+    var numberInput = document.getElementById('number_input').value.trim();
+    var emailInput = document.getElementById('email_input').value.trim();
+    var phoneInput = document.getElementById('phone_input').value.trim();
+    var dateInput = document.getElementById('date_input').value.trim();
+
+    // Regular expressions for validation
+    var textRegex = /^[A-Za-z\s]+$/;
+    var numberRegex = /^[0-9]+$/;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var phoneRegex = /^\d{10}$/;
+    var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+    // Validation flags
+    var isValid = true;
+    var errorMessage = "";
+
+    // Validate text input
+    if (!textInput.match(textRegex)) {
+      isValid = false;
+      errorMessage += "Please enter a valid text input.\n";
+    }
+
+    // Validate number input
+    if (!numberInput.match(numberRegex)) {
+      isValid = false;
+      errorMessage += "Please enter a valid number input.\n";
+    }
+
+    // Validate email input
+    if (!emailInput.match(emailRegex)) {
+      isValid = false;
+      errorMessage += "Please enter a valid email input.\n";
+    }
+
+    // Validate phone input
+    if (!phoneInput.match(phoneRegex)) {
+      isValid = false;
+      errorMessage += "Please enter a valid phone input (10 digits).\n";
+    }
+
+    // Validate date input
+    if (!dateInput.match(dateRegex)) {
+      isValid = false;
+      errorMessage += "Please enter a valid date input (YYYY-MM-DD).\n";
+    }
+
+    // Display error message if validation fails
+    if (!isValid) {
+      alert(errorMessage);
+      return false;
+    }
+
+    return true; // Submit the form if all inputs are valid
+  }
+</script>
+</head>
+<body>
+  <form onsubmit="return validateForm()">
+    Text Input: <input type="text" id="text_input" ><br>
+    Number Input: <input type="number" id="number_input" ><br>
+    Email Input: <input type="email" id="email_input" ><br>
+    Phone Input: <input type="tel" id="phone_input" ><br>
+    Date Input: <input type="date" id="date_input" ><br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

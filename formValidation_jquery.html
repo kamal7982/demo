@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+    </style>
+    </head>
+    <body>
+    
+    <form id="myForm">
+        <div>
+            <label for="text">Text:</label>
+            <input type="text" id="text" name="text">
+            <div class="error" id="textError"></div>
+        </div>
+        
+        <div>
+            <label for="number">Number:</label>
+            <input type="number" id="number" name="number">
+            <div class="error" id="numberError"></div>
+        </div>
+        
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <div class="error" id="emailError"></div>
+        </div>
+        
+        <div>
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone">
+            <div class="error" id="phoneError"></div>
+        </div>
+        
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+            <div class="error" id="dateError"></div>
+        </div>
+        
+        <div>
+            <label for="file">File:</label>
+            <input type="file" id="file" name="file">
+            <div class="error" id="fileError"></div>
+        </div>
+        
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#myForm').submit(function(e) {
+            var valid = true;
+            $('.error').text('');
+            
+            // Text validation
+            if ($('#text').val() === '') {
+                $('#textError').text('Please enter text.');
+                valid = false;
+            }
+            
+            // Number validation
+            if ($('#number').val() === '') {
+                $('#numberError').text('Please enter a number.');
+                valid = false;
+            }
+            
+            // Email validation
+            var email = $('#email').val();
+            if (email === '') {
+                $('#emailError').text('Please enter an email.');
+                valid = false;
+            } else if (!isValidEmail(email)) {
+                $('#emailError').text('Please enter a valid email address.');
+                valid = false;
+            }
+            
+            // Phone validation
+            var phone = $('#phone').val();
+            if (phone === '') {
+                $('#phoneError').text('Please enter a phone number.');
+                valid = false;
+            } else if (!isValidPhone(phone)) {
+                $('#phoneError').text('Please enter a valid phone number.');
+                valid = false;
+            }
+            
+            // Date validation
+            if ($('#date').val() === '') {
+                $('#dateError').text('Please enter a date.');
+                valid = false;
+            }
+            
+            // File validation (can be extended)
+            if ($('#file').val() === '') {
+                $('#fileError').text('Please upload a file.');
+                valid = false;
+            }
+            
+            if (!valid) {
+                e.preventDefault();
+            }
+        });
+        
+        // Email validation function
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Phone validation function
+        function isValidPhone(phone) {
+            var phoneRegex = /^\d{10}$/; // Change this regex according to your phone number format
+            return phoneRegex.test(phone);
+        }
+    });
+    </script>
+    
+    </body>
+    </html>
+    
